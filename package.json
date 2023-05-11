@@ -1,7 +1,12 @@
 {
   "name": "md-links",
   "description": "Extrai os links de arquivos md",
-  "keywords": ["node", "javascript", "markdown", "links"],
+  "keywords": [
+    "node",
+    "javascript",
+    "markdown",
+    "links"
+  ],
   "author": "Carolina Mariotto de Almeida Santos <mariotto.carolina@hotmail.com>",
   "repository": {
     "type": "git",
@@ -20,7 +25,8 @@
     "commit": "ffa75c8b2bede153844195479abeff01f3e34227"
   },
   "dependencies": {
-    "chalk": "^5.2.0"
+    "chalk": "^4.1.2",
+    "common-js": "^0.3.8"
   },
   "devDependencies": {
     "eslint": "^8.39.0",
