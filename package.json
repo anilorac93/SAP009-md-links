@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "md-links-cmas",
   "description": "Extrai os links de arquivos md",
   "keywords": [
     "node",
@@ -11,6 +11,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/anilorac93/SAP009-md-links"
+  },
+  "bin": {
+    "md-links": "./cli.js"
   },
   "bugs": {
     "url": "https://github.com/anilorac93/SAP009-md-links"
@@ -26,10 +29,17 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "common-js": "^0.3.8"
+    "common-js": "^0.3.8",
+    "node-fetch": "^2.6.5"
   },
   "devDependencies": {
+    "coverage-node": "^8.0.0",
     "eslint": "^8.39.0",
     "jest": "^29.5.0"
+  },
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "eslint": "eslint *.js test/",
+    "pretest": "npm run eslint"
   }
 }

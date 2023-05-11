@@ -9,7 +9,7 @@ function mdLinks(pathFile, options = {}) {
         // const tamanhoArquivo = fs.statSync(pathFile).size; //stat irá trazer a informação sobre o arquivo
     
         if(!existingFile) {
-            reject(chalk.blue('\u2764') + ' ' + `O seguinte arquivo não existe: ${chalk.red.bold(pathFile)}`);
+            reject(chalk.green('\u2764') + '    ' + `O seguinte arquivo não existe: ${chalk.red.bold(pathFile)}`);
         } else {
             fs.readFile(pathFile, 'utf-8', (err, data) => { //dados: dados gerado na expressão da string
                 if(err) {
@@ -23,22 +23,22 @@ function mdLinks(pathFile, options = {}) {
                         const dividir = removeLink.split(']('); 
                         const newObject = {
                             href: dividir[1], //(read.me)
-                            href: dividir[0],
+                            text: dividir[0],
                             file: pathFile,
                         };
                         return newObject;
                     });
 
                     if(options.validate) {
-                        const promise = linkFound.map(element => fetch(element)); //mandando informação para o promise
-                        Promise.all(promise)
+                        const promises = linkFound.map(element => fetch(element)); //mandando informação para o promise
+                        Promise.all(promises)
                             .then(linkArray => {
                                 resolve(linkArray)
                             })
                             .catch(error => {
                                 reject(error)
                             });
-                    } else {
+                        } else {
                         resolve(linkFound);
                     }
                 }

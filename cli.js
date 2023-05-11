@@ -1,7 +1,6 @@
+#!/usr/bin/env node
 const chalk = require('chalk'); 
-const path = require('path'); //contém o caminho do diretório de onde o conteúdo deve ser lido. Pode ser uma String, Buffer ou URL
-const fetch = require('node-fetch');
-const { mdlinks } = require('./mdLink');
+const mdLinks = require('./mdLink');
 
 const pathFile = process.argv[2]; //retorna matriz com argumentos de cli passados ​​quando o node.js foi iniciado
 const options = process.argv[3];
@@ -24,13 +23,13 @@ const messageStatus = {
 
 function SearchLinks(element) {
     if (!element || !element.href) {
-        return Promise.reject(new Error(`Elemento invalido ou não possui uma URL`));
+        return Promise.reject(new Error(`Elemento inválido ou não possui uma URL`));
     }
 
     return fetch(element.href)
         .then(response => {
             element.status = response.status;
-            element.statusText = statusMessager[response.status.toString()] || response.statusText //pega resposta do status e tranforma em string
+            element.statusText = messageStatus[response.status.toString()] || response.statusText //pega resposta do status e tranforma em string
             return element;
         })
         .catch(error => {
@@ -46,14 +45,14 @@ function showStatistics(result) {
         total: result.length, 
         unique: checkLink.length,
     };
-     console.log(chalk.orange('Total:'), stats.total);
-     console.log(chalk.orange('Unique:'), stats.unique);
+     console.log(chalk.cyan('Total:'), receiveStatistics.total);
+     console.log(chalk.green('Unique:'), receiveStatistics.unique);
 };
 
 function validationResult(element) {
-    const statusColor = element.status >= 200 && element.status < 300 ? chalk.cyan : chalk.orange;
+    const statusColor = element.status >= 200 && element.status < 300 ? chalk.cyan : chalk.red;
     console.log(
-    statusColor('\u1f340'),
+    statusColor('\u2620'),
     chalk.green(element.file),
     chalk.green(element.href),
     statusColor(`${element.status} ${element.statusText}`),
@@ -67,15 +66,15 @@ function failedStatistics(result) {
     Promise.all(promise)
         .then(linksArray => {
             const checkLink = [...new Set(linksArray.map(element => element.href))];
-            const statistics = {
+            const receiveStatistics = {
                 total: linksArray.length,
-                unique: verificaLink.length,
+                unique: checkLink.length,
                 broken: linksArray.filter(element => element.status !== 200).length,
             };
 
-            console.log(chalk.grey('Total:'), statistics.total);
-            console.log(chalk.grey('Unique:'), statistics.unique);
-            console.log(chalk.grey('Broken:'), statistics.broken);
+            console.log(chalk.cyan('Total:'), receiveStatistics.total);
+            console.log(chalk.green('Unique:'), receiveStatistics.unique);
+            console.log(chalk.red('Broken:'), receiveStatistics.broken);
             })
         .catch(error => {
             console.error(error);
@@ -98,7 +97,7 @@ function handleValidatedOption() {
     .then(result => {
       const promises = result.map(element => SearchLinks(element));
 
-      Promise.all(promise)
+      Promise.all(promises)
         .then(linksArray => {
             linksArray.forEach(element => {
                 validationResult(element);
@@ -135,7 +134,7 @@ if(options === '--stats' && process.argv.includes('--validate')) {
     mdLinks(pathFile)
         .then(result => {
             result.forEach(element => {
-                console.log(chalk.white(element.file), chalk.white(element.href), chalk.white(element.text));
+                console.log(chalk.blue(element.file), chalk.magenta(element.text), chalk.white(element.href));
             });
         })
         .catch(error => {
