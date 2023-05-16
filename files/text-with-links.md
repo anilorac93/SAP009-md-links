@@ -6,5 +6,5 @@ O edifício da sede da NASA em Washington, D.C. foi renomeado como Mary W. Jacks
 
 fonte: [https://pt.wikipedia.org/wiki/Mary_Jackson]
 
-[Esse link não existe](https://casanaarvor.com.br)
-[Teste de retorno 400](https://httpstat.us/404)
+[Teste de retorno 400](https://httpstat.us/400)
+[Teste de retorno 404](https://httpstat.us/404)

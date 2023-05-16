@@ -21,7 +21,7 @@ const messageStatus = {
   '503': 'Serviço indisponível',
 };
 
-function SearchLinks(element) {
+function searchLinks(element) {
     if (!element || !element.href) {
         return Promise.reject(new Error(`Elemento inválido ou não possui uma URL`));
     }
@@ -61,7 +61,7 @@ function validationResult(element) {
 };
 
 function failedStatistics(result) {
-    const promise = result.map(element => SearchLinks(element));
+    const promise = result.map(element => searchLinks(element));
     
     Promise.all(promise)
         .then(linksArray => {
@@ -95,7 +95,7 @@ function statisticsWithValidationOption() {
 function handleValidatedOption() {
     mdLinks(pathFile)
     .then(result => {
-      const promises = result.map(element => SearchLinks(element));
+      const promises = result.map(element => searchLinks(element));
 
       Promise.all(promises)
         .then(linksArray => {
