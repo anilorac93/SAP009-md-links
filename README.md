@@ -51,6 +51,4 @@ E inclusive para obter estatísticas que combinem os resultados de ambas as opti
 
 ## Testes
 
-<div align="center">
 ![testes](https://github.com/anilorac93/SAP009-md-links/assets/110473504/1e0cd22e-5827-4491-b7a6-a668c2e05dd5)
-</div>

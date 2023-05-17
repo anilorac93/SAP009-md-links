@@ -9,7 +9,7 @@ function mdLinks(pathFile, options = {}) {
         // const tamanhoArquivo = fs.statSync(pathFile).size; //stat irá trazer a informação sobre o arquivo
     
         if(!existingFile) {
-            reject(chalk.green('\u2764') + '    ' + `O seguinte arquivo não existe: ${chalk.red.bold(pathFile)}`);
+            reject(chalk.green('\u2620') + '    ' + `O seguinte arquivo não existe: ${chalk.red.bold(pathFile)}`);
         } else {
             fs.readFile(pathFile, 'utf-8', (err, data) => { //dados: dados gerado na expressão da string
                 if(err) {

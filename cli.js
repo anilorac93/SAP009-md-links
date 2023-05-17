@@ -53,8 +53,8 @@ function validationResult(element) {
     const statusColor = element.status >= 200 && element.status < 300 ? chalk.cyan : chalk.red;
     console.log(
     statusColor('\u2620'),
-    chalk.green(element.file),
-    chalk.green(element.href),
+    chalk.cyan(element.file),
+    chalk.white(element.href),
     statusColor(`${element.status} ${element.statusText}`),
     chalk.green(element.text)
   );
@@ -134,7 +134,7 @@ if(options === '--stats' && process.argv.includes('--validate')) {
     mdLinks(pathFile)
         .then(result => {
             result.forEach(element => {
-                console.log(chalk.blue(element.file), chalk.magenta(element.text), chalk.white(element.href));
+                console.log(chalk.blue(element.file), chalk.green(element.text), chalk.white(element.href));
             });
         })
         .catch(error => {
