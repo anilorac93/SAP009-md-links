@@ -1,5 +1,8 @@
 const mdLinks = require('../mdLink.js');
 const fs = require('fs');
+const fetch = require('node-fetch');
+
+jest.mock('node-fetch', ()=>jest.fn())
 
 describe('mdLinks', () => {
 
@@ -50,6 +53,12 @@ describe('caso a extensao não exista', () => {
 });
 
 test('Deve retornar uma matriz com objetos contendo o status', async () => {
+
+fetch.mockImplementation(()=> Promise.resolve({
+  ok: true,
+  status: 200,
+ }))
+
   const result = await mdLinks('./files/text-with-links.md', { validate: true });
   expect(Array.isArray(result)).toBe(true);
   expect(result).toHaveLength(9);
